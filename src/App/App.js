@@ -1,7 +1,8 @@
 import React, { Fragment, useState, useRef } from "react";
-import Card from "../Card/Card";
+import CardList from "../components/CardList/CardList";
 import styles from "./App.module.css";
-import Filter from "../filter/Filter";
+import Filter from "../components/filter/Filter";
+import Modal from "../components/Modal/Modal";
 
 // const App = () => {
 //     const styles = { color: "red", marginTop: "150px" };
@@ -21,6 +22,7 @@ const App = () => {
     const inputEl = useRef(null);
     const [toggleState, setToggle] = useState(true);
     const [filter, setFilter] = useState("");
+    const [showModal, setShowModal] = useState(false);
     const [state, setState] = useState(
         [
             { id: 1, name: "Ahmed", age: 38, adds: "Alex", phone: "0192883", type: "boy" },
@@ -97,10 +99,19 @@ const App = () => {
     return (
         <React.StrictMode>
             <div className={styles.container}>
-                <h1>arrNames One</h1>
-                <button style={{ marginBottom: "20px" }} onClick={() => { setToggle(!toggleState) }}>
-                    {toggleState ? "Hide Names" : "Show Names"}
-                </button>
+                <Modal show={showModal} closeModal={() => setShowModal(false)} />
+                <h1>List of Data</h1>
+
+                <div style={{ display: "flex", merginBottom: "10px" }}>
+                    <button style={{ marginRight: "20px" }} onClick={() => { setToggle(!toggleState) }}
+                        className={styles.button}>
+                        {toggleState ? "Hide Names" : "Show Names"}
+                    </button>
+
+                    <button className={styles.button}
+                        onClick={() => setShowModal(true)}
+                    >New Record</button>
+                </div>
 
                 <Filter filteration={filterNames} />
 
@@ -111,7 +122,7 @@ const App = () => {
                 {/* </div> */}
 
                 <div className={toggleState ? styles.show : styles.hide}>
-                    <Card nameList={namesHandler()} deleteHandler={deleteHandler} color="orange" />
+                    <CardList nameList={namesHandler()} deleteHandler={deleteHandler} color="orange" />
                 </div>
                 {/* reusable component */}
                 {/* <h1>arrNames Two</h1>

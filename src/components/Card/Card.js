@@ -1,21 +1,18 @@
 import React from "react";
-import style from "./Card.module.css";
+import styles from "./Card.module.css";
 
-const Card = ({ nameList, color, deleteHandler }) => {
-    const cards = nameList.map(({ id, name, age, ads, phone, type }, idx) => (
-        <div className={style.wrap} key={id} style={{
+const Card = ({ id, name, age, ads, phone, type, color = "orange", deleteHandler }) => {
+    return (
+        <div className={styles.wrap} style={{
             backgroundColor: type === "boy" ? "gray" : color
         }}>
             <div>Name is : {name}</div>
             <div>Age is : {age}</div>
             <div>Ads is : {ads}</div>
             <div>Phone is : {phone}</div>
-            <div className={style.deleteBtn} onClick={(event) => deleteHandler(event, id)}>X</div>
+            <div className={styles.deleteBtn} onClick={(event) => deleteHandler(event, id)}>X</div>
         </div>
-    ))
-    return (
-        <div>{cards}</div>
     )
-};
+}
 
 export default Card;
